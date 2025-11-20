@@ -1,0 +1,23 @@
+TITLE:      This is an analysis of path analysis 
+            using data imputed 
+DATA:       FILE is missimplist.dat;
+            TYPE = IMPUTATION;
+VARIABLE:   NAMES = y1-y4,m1,m2,p1-p11,
+            x1,x2,n1,n2,n4,n5,
+            xc,n3a,n6a,n7a,n8a,n9,n10;
+            USEVARIABLES = y1-y4,m1,m2,p1-p11,
+                           x1,x2,n1,n2,n4,n5;
+            CATEGORICAL = y3-y4;
+ANALYSIS:   ESTIMATOR = WLSMV;
+            PARAMETERIZATION = theta;
+MODEL:      y1-y4 on x1,x2,m1,m2,p1-p11,n1,n2,n4,n5;
+            m1-m2 on x1,p1-p10,n1,n2;
+            m1 WITH m2;
+            x2 on x1,p1-p3,p8-p11,n1,n2,n4,n5;
+            x1 on p1-p6,p8-p10,n1,n2;
+MODEL INDIRECT:
+            y1 IND x1;
+            y2 IND x1;
+            y3 IND x1;
+            y4 IND x1;
+OUTPUT: TECH1,STDYX,MOD(0),CINTERVAL;     
