@@ -1,0 +1,20 @@
+TITLE:      This is an analysis of multiple imputation
+                       
+DATA:       FILE = withmissing_1026.dat; 
+VARIABLE:   NAMES = id,y1-y4,m1,m1a,m2,m2a,p1-p11,
+            x1,x2,xc,n1-n6,dc,fc,uc,
+            n3a,n6a,uac,n3b,n6b,ubc,
+            n7,n7a,n7b,n8,n8a,n8b,ac,aac,
+            n9,n10,nc,
+            r1,r2,o1;
+            USEVARIABLES = y1-y4,m1,m2,p1-p11,
+                           x1,x2,n1,n2,n4,n5; 
+            AUXILIARY = xc,n3a,n6a,n7a,n8a,n9,n10;               
+            MISSING = ALL(999);
+DATA IMPUTATION:
+            IMPUTE = y1,y2,y3(c),y4(c),m1,m2,
+            p1-p4,p5(c),p6(c),p7(c);            
+            NDATASETS = 10;
+            SAVE = missimp*.dat;
+ANALYSIS: TYPE = BASIC;
+OUTPUT:   TECH8;
